@@ -1,0 +1,19 @@
+import express from 'express'
+import dotenv from 'dotenv'
+import { connectDB } from './config/dbconfig.js'
+import userRouter from './routes/user.routes.js'
+
+dotenv.config()
+
+const app = express()
+const PORT = process.env.PORT || 9999
+app.use(express.json())
+
+app.use('/api/v1/auth',userRouter)
+
+
+connectDB().then(() => {
+    app.listen(PORT,() => {
+    console.log("Server Started on port",PORT)
+})
+})
