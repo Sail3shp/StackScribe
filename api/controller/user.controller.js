@@ -98,3 +98,23 @@ export const deleteUser = async(req,res) => {
         console.log('error in delete controller', error)
     }
 }
+
+export const updateUser = async(req,res) => {
+    try {
+        if(req.params.userId !== req.user.userId) {
+            return res.status(401).json({message:'unauthorized'})
+        }
+        const {username,email,password} = req.body
+        const hashedPassword = await bcrypt.hash(password,10)
+        const updatedUser = await User.findByIdAndUpdate(req.params.userId,{
+            name:username,
+            email,
+            password:hashedPassword
+        },
+    {new:true}).select('-password')
+    res.status(201).json({message:'User updated successfully',updatedUser})
+    } catch (error) {
+        res.status(500).json({ message: 'Internal Server Error',error })
+        console.log('error in update controller', error)
+    }
+}
