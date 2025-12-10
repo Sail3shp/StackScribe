@@ -9,5 +9,4 @@ router.post('/logout',logout)
 //user flows
 router.delete('/:userId',verifyUser,deleteUser)
 router.put('/:userId',verifyUser,updateUser)
-
 export default router
