@@ -2,6 +2,7 @@ import express from 'express'
 import dotenv from 'dotenv'
 import { connectDB } from './config/dbconfig.js'
 import userRouter from './routes/user.routes.js'
+import blogRouter from './routes/blog.routes.js'
 import cookieParser from 'cookie-parser'
 
 dotenv.config()
@@ -12,6 +13,7 @@ app.use(express.json())
 app.use(cookieParser())
 
 app.use('/api/v1/auth',userRouter)
+app.use('/api/v1/blog',blogRouter)
 
 
 connectDB().then(() => {
