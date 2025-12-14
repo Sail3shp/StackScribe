@@ -53,6 +53,19 @@ export const getBlogs = async (req, res) => {
     }
 }
 
+export const getBlogsById = async(req,res) => {
+    try {
+        const blog = await Blog.findById(req.params.blogId)
+        if(!blog){
+            return res.status(404).json({message:'Blog not found'})
+        }
+        res.status(200).json(blog)
+    } catch (error) {
+        res.status(500).json({ message: 'Internal server error' })
+        console.log('error in getting blog', error.message)
+    }
+}
+
 export const deleteBlog = async (req, res) => {
     try {
         const blogDetails = await Blog.findById(req.params.blogId)
