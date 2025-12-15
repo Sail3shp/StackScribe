@@ -66,6 +66,10 @@ export const getBlogsById = async(req,res) => {
     }
 }
 
+/*export const getBlogsByMostLiked = async(req,res) => {
+
+}*/
+
 export const deleteBlog = async (req, res) => {
     try {
         const blogDetails = await Blog.findById(req.params.blogId)
