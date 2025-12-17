@@ -1,10 +1,16 @@
-import { Link } from "react-router"
-import { Mail,Key } from "lucide-react"
+import { Key, Mail, UserIcon } from "lucide-react"
 
-const LoginPage = () => {
+const SignupPage = () => {
     return (
         <form className="flex flex-col space-y-5 max-w-lg mx-auto my-10 bg-neutral-200  rounded-lg shadow-xl p-6">
-            <h2 className="text-2xl font-medium">Log in to your account</h2>
+            <h2 className="text-2xl font-medium">Create an account</h2>
+            <div>
+                <label htmlFor="username" className="text-sm block mb-2.5">Username</label>
+                <div className="relative">
+                    <div className="absolute inset-y-0 start-0 flex items-center ps-3"><UserIcon /></div>
+                    <input type="text" id="username" required className=" block w-full ps-10 pe-3 py-2.5 bg-neutral-100 rounded-md" placeholder="john doe"/>
+                </div>
+            </div>
             <div>
                 <label htmlFor="email" className="text-sm block mb-2.5">Email</label>
                 <div className="relative">
@@ -19,12 +25,10 @@ const LoginPage = () => {
                     <input type="password" id="password" required className=" block w-full ps-10 pe-3 py-2.5 bg-neutral-100 rounded-md" placeholder="********" />
                 </div>
             </div>
-            <button className="text-blue-400 inline-flex cursor-pointer">Forgot password?</button>
-            <button className="bg-blue-500 p-2 rounded-lg text-white ">Log in </button>
-            <h3>Don't have an account yet? <Link className="text-blue-400">Sign up</Link></h3>
+            <button className="bg-blue-500 p-2 rounded-lg cursor-pointer transition text-white duration-100  ">Create an account </button>
 
         </form>
     )
 }
 
-export default LoginPage
+export default SignupPage

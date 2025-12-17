@@ -3,15 +3,25 @@ import { Routes, Route } from 'react-router'
 import Navbar from './components/Navbar'
 import HomePage from './pages/HomePage'
 import Footer from './components/Footer'
+import SignupPage from './pages/SignupPage'
+import LoginPage from './pages/LoginPage'
+import BlogPage from './pages/BlogPage'
 
 function App() {
 
   return (
-    <>
+    <div className='min-h-screen flex flex-col'>
       <Navbar />
-      <HomePage/>
-      <Footer />
-      </>
+      <main className='grow'>
+        <Routes>
+          <Route path='/' element={<HomePage />} />
+          <Route path='/login' element={<LoginPage />} />
+          <Route path='/signup' element={<SignupPage />} />
+          <Route path='/blogs' element={<BlogPage />} />
+        </Routes>
+      </main>
+        <Footer />
+    </div>
   )
 }
 
