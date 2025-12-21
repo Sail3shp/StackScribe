@@ -16,7 +16,7 @@ const Navbar = () => {
         </div>
         <button className="md:hidden cursor-pointer" onClick={() => {setActive(!isActive)}}> <Menu />  </button>
     </div>
-    {isActive && (<div className="absolute  max-w-full  top-21   container text-sm  md:text-lg tracking-wide p-1 text-center bg-neutral-400  rounded-lg z-50 gap-4 flex flex-col ">
+    {isActive && (<div className="absolute md:hidden  max-w-full  top-21   container text-sm  md:text-lg tracking-wide p-1 text-center bg-neutral-400  rounded-lg z-50 gap-4 flex flex-col ">
             <Link >Write</Link>
             <Link to={'/blogs'}>Blogs</Link>
             <Link to={'/signup'}>Sign in</Link>

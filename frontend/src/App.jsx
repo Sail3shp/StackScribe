@@ -6,7 +6,7 @@ import Footer from './components/Footer'
 import SignupPage from './pages/SignupPage'
 import LoginPage from './pages/LoginPage'
 import BlogPage from './pages/BlogPage'
-
+//use /auth/me for persistent logging 
 function App() {
 
   return (

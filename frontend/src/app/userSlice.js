@@ -1,0 +1,136 @@
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import api from "../utils/axios";
+import { toast } from "react-toastify";
+
+const initialState = {
+    user:null,
+    loading:false,
+    error:null
+}
+export const login = createAsyncThunk('/auth/login',
+    async(credentials,{rejectWithValue}) => {
+        try {
+            const res = await api.post('/auth/login',credentials)
+            toast.success('logged in ')
+            console.log(res.data)
+            return res.data
+        } catch (error) {
+            console.log(error.response?.data)
+            toast.error(error.response.data.message || 'error logging in ')
+            return rejectWithValue(error.response?.data || { message: 'Login failed' }
+)
+        }
+
+    }
+)
+
+
+export const signin = createAsyncThunk('/auth/register',
+    async(credentials,{rejectWithValue}) => {
+        try {
+            const res = await api.post('/auth/resgister',credentials)
+            console.log(res.data)
+            toast.success(res.data.message || 'User registered')
+            return res.data
+        } catch (error) {
+            toast.error(error.response.data.message || 'error registering user  ')
+            console.log(error.response?.data)
+            return rejectWithValue(error.response?.data || { message: 'Login failed' }
+)
+        }
+    }
+)
+
+export const logout = createAsyncThunk('/auth/logout',
+    async(_,{rejectWithValue}) => {
+        try {
+            const res = await api.post('/auth/logout')
+            toast.success('logged out successfully')
+            console.log(res.data)
+            return res.data
+        } catch (error) {
+            console.log(error.response?.data)
+            toast.error(error.response.data.message || 'error logging out ')
+            return rejectWithValue(error.response?.data || { message: 'Login failed' }
+)
+        }
+    }
+)
+
+export const deleteAccount = createAsyncThunk('/auth/delete',
+    async(_,{rejectWithValue}) => {
+        try {
+            const res = await api.delete(`/auth/${id}`)
+            console.log(res.data)
+        } catch (error) {
+            console.log(error.response?.data)
+            return rejectWithValue(error.response?.data || {message:'Error in deleting your account'})
+        }
+    }
+)
+
+export const updateAccount = createAsyncThunk('/auth/update',
+    async(credentials,{rejectWithValue}) => {
+        try {
+            const res = await api.update(`/auth/${id}`,credentials)
+            console.log(res.data)
+        } catch (error) {
+            console.log(error.response?.data)
+            return rejectWithValue(error.response?.data || {message:'Error in deleting your account'})
+        }
+    }
+)
+
+export const userSlice = createSlice({
+    name:'user',
+    initialState,
+    reducers:{},
+    extraReducers:(builder) => {
+        builder
+        .addCase(login.pending,(state) => {
+            state.loading = true
+            state.error = null
+        })
+        .addCase(login.rejected,(state,action)=>{
+            state.user = null,
+            state.loading = false
+            state.error = action.payload?.message || 'Login failed'
+        })
+        .addCase(login.fulfilled,(state,action)=>{
+            state.user = action.payload
+            state.loading = false
+        })
+        .addCase(signin.pending,(state) => {
+            state.loading = true
+            state.error = null
+        })
+        .addCase(signin.rejected,(state,action)=>{
+            state.user = null,
+            state.loading = false
+            state.error = action.payload?.message || 'Login failed'
+        })
+        .addCase(signin.fulfilled,(state,action)=>{
+            state.user = action.payload
+            state.loading = false
+        })
+        .addCase(updateAccount.fulfilled,(state,action)=>{
+            state.user = action.payload
+            state.loading = false
+        })
+        .addCase(updateAccount.pending,(state) => {
+            state.loading = true
+            state.error = null
+        })
+        .addCase(updateAccount.rejected,(state,action)=>{
+            state.user = null,
+            state.loading = false
+            state.error = action.payload?.message || 'Login failed'
+        })
+        .addCase(logout.fulfilled,(state,action)=>{
+            state.user = null 
+            state.loading = false
+        })
+    } 
+})
+
+export default userSlice.reducer
