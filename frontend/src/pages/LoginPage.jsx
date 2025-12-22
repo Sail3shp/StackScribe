@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router"
-import { Mail,Key } from "lucide-react"
+import { Mail,Key,Loader } from "lucide-react"
 import { useEffect, useState } from "react"
 import {useDispatch,useSelector} from 'react-redux'
 import { login } from "../app/userSlice.js"
@@ -56,8 +56,8 @@ const LoginPage = () => {
                 </div>
             </div>
             <button className="text-blue-400 inline-flex cursor-pointer">Forgot password?</button>
-            <button className="bg-blue-500 p-2 rounded-lg text-white ">Log in </button>
-            <h3>Don't have an account yet? <Link className="text-blue-400">Sign up</Link></h3>
+            <button className="bg-blue-500 p-2 rounded-lg text-white "> {loading ? <Loader  className="animate-spin mx-auto"/>:'Log in'} </button>
+            <h3>Don't have an account yet? <Link to={'/signup'} className="text-blue-400">Sign up</Link></h3>
 
         </form>
     )

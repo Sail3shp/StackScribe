@@ -13,7 +13,7 @@ export const login = createAsyncThunk('/auth/login',
             const res = await api.post('/auth/login',credentials)
             toast.success('logged in ')
             console.log(res.data)
-            return res.data
+            return res.data.user
         } catch (error) {
             console.log(error.response?.data)
             toast.error(error.response.data.message || 'error logging in ')
@@ -28,14 +28,15 @@ export const login = createAsyncThunk('/auth/login',
 export const signin = createAsyncThunk('/auth/register',
     async(credentials,{rejectWithValue}) => {
         try {
-            const res = await api.post('/auth/resgister',credentials)
+            console.log(credentials)
+            const res = await api.post('/auth/register',credentials)
             console.log(res.data)
-            toast.success(res.data.message || 'User registered')
-            return res.data
+            toast.success( 'User registered')
+            return res.data.user
         } catch (error) {
             toast.error(error.response.data.message || 'error registering user  ')
-            console.log(error.response?.data)
-            return rejectWithValue(error.response?.data || { message: 'Login failed' }
+            console.log(error)
+            return rejectWithValue(error.response?.data || { message: 'registeration failed' }
 )
         }
     }
@@ -44,10 +45,9 @@ export const signin = createAsyncThunk('/auth/register',
 export const logout = createAsyncThunk('/auth/logout',
     async(_,{rejectWithValue}) => {
         try {
-            const res = await api.post('/auth/logout')
+            await api.post('/auth/logout')
             toast.success('logged out successfully')
-            console.log(res.data)
-            return res.data
+            return null
         } catch (error) {
             console.log(error.response?.data)
             toast.error(error.response.data.message || 'error logging out ')
@@ -126,7 +126,7 @@ export const userSlice = createSlice({
             state.loading = false
             state.error = action.payload?.message || 'Login failed'
         })
-        .addCase(logout.fulfilled,(state,action)=>{
+        .addCase(logout.fulfilled,(state)=>{
             state.user = null 
             state.loading = false
         })
