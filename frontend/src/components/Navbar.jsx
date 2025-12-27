@@ -18,7 +18,7 @@ const Navbar = () => {
       <div className="flex justify-between  max-w-7xl p-6 mx-auto items-center  rounded-lg">
         <div className="font-bold text-3xl tracking-tight"><Link to={'/'}>StackScribe</Link></div>
         <div className="md:flex hidden text-sm md:text-lg tracking-wide text-center  p-1 gap-4">
-          <Link >Write</Link>
+          <Link to={'/write'}>Write</Link>
           <Link to={'/blogs'}>Blogs</Link>
           {user ? 
           <button onClick={handleLogout} className="text-red-500 hover:underline">Log out</button>

@@ -6,6 +6,7 @@ import Footer from './components/Footer'
 import SignupPage from './pages/SignupPage'
 import LoginPage from './pages/LoginPage'
 import BlogPage from './pages/BlogPage'
+import AddBlogPage from './pages/AddBlogPage'
 //use /auth/me for persistent logging 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
           <Route path='/login' element={<LoginPage />} />
           <Route path='/signup' element={<SignupPage />} />
           <Route path='/blogs' element={<BlogPage />} />
+          <Route path='/write' element={<AddBlogPage />} />
         </Routes>
       </main>
         <Footer />

@@ -9,11 +9,13 @@ const initialState ={
 
 export const createBlog = createAsyncThunk('/blog',async(data,{rejectWithValue}) => {
     try {
+        console.log('its here',data)
         const res = await api.post('/blog',data)
-        console.log(res)
-        return res
+        console.log(res.data)
+        return res.data
     } catch (error) {
         console.log(error.message)
+        toast.error(error.message)
         return rejectWithValue(error.response?.data || { message: 'blog creation failed' })
     }
 })
