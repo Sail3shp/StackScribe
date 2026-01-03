@@ -9,7 +9,9 @@ const BlogPage = () => {
   const {blog,loading} = useSelector((state) => state.blog)
   useEffect(() => {
     dispatch(getBlogs())
-  },[])
+    console.log(loading)
+  },[dispatch])
+  
   return (
     
     <>
@@ -26,7 +28,7 @@ const BlogPage = () => {
     </div>
 
     <div className="max-w-7xl mb-6 mx-auto mt-5 grid grid-cols-3 gap-4">
-      { blog?.map((post) => <BlogCard key={post._id} blog={post} />)}
+      {  blog.map((post) => <BlogCard key={post._id} blog={post} />)}
     </div>
     </>
   )
