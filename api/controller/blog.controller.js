@@ -45,7 +45,7 @@ export const updateBlog = async (req, res) => {
 
 export const getBlogs = async (req, res) => {
     try {
-        const allBlogs = await Blog.find()
+        const allBlogs = await Blog.find().populate("authorId","name")
         res.status(200).json({ message: 'blogs fetched successfully', allBlogs })
     } catch (error) {
         res.status(500).json({ message: 'Internal server error' })
