@@ -1,4 +1,11 @@
 import Blog from "../model/blog.model.js"
+import { redis } from "../lib/redis.js"
+
+const invalidateCache = (cacheKey) => {
+    redis.del(cacheKey)
+    if(err) throw err
+    console.log(`cache key "${cacheKey}" invalidated`)
+}
 export const createBlog = async (req, res) => {
     try {
         const { title, content, imageUrl } = req.body
@@ -10,6 +17,7 @@ export const createBlog = async (req, res) => {
             content,
             authorId: req.user.userId
         })
+        invalidateCache('/api/v1/blog/')
 
         res.status(201).json({ message: 'Your writings has been published', newBlog })
     } catch (error) {
@@ -35,6 +43,9 @@ export const updateBlog = async (req, res) => {
             title,
             content
         }, { new: true })
+
+        invalidateCache('/api/v1/blog/')
+        
         res.status(201).json({ message: 'Blog updated successfully', updatedBlog })
 
     } catch (error) {
@@ -46,6 +57,7 @@ export const updateBlog = async (req, res) => {
 export const getBlogs = async (req, res) => {
     try {
         const allBlogs = await Blog.find().populate("authorId","name")
+        redis.setex(req.originalUrl,120,JSON.stringify(allBlogs))
         res.status(200).json({ message: 'blogs fetched successfully', allBlogs })
     } catch (error) {
         res.status(500).json({ message: 'Internal server error' })
