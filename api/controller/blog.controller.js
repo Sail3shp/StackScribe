@@ -45,7 +45,7 @@ export const updateBlog = async (req, res) => {
         }, { new: true })
 
         invalidateCache('/api/v1/blog/')
-        
+
         res.status(201).json({ message: 'Blog updated successfully', updatedBlog })
 
     } catch (error) {
@@ -75,6 +75,32 @@ export const getBlogsById = async(req,res) => {
     } catch (error) {
         res.status(500).json({ message: 'Internal server error' })
         console.log('error in getting blog', error.message)
+    }
+}
+
+export const getBlogsByAuthor = async(req,res) => {
+    const {authorId} = req.params
+    try {
+        const allBlogs = await Blog.find({authorId}).limit(10)
+        res.status(200).json({message:'blogs by author',allBlogs})
+    } catch (error) {
+        res.status(500).json({ message: 'Internal server error' })
+        console.log('error in getting blog by author', error) 
+    }
+}
+
+export const searchBlogs = async(req,res) => {
+    const {q} = req.query
+    console.log(q)
+    try {
+        const allBlogs = await Blog.find(
+            {$text:{ $search: q}},
+            {score: {$meta: "textScore"}}
+        ).sort({score:{$meta:"textScore"}}).limit(10)
+        res.status(200).json({message:'searched blogs',blogs})
+    } catch (error) {
+        res.status(500).json({ message: 'Internal server error' })
+        console.log('error in getting blog', error.message) 
     }
 }
 

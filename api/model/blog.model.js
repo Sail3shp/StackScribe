@@ -26,6 +26,14 @@ const blogSchema = new mongoose.Schema({
     ]
 },{timestamps:true})
 
+//creating index for fast and scalable search rather than regex
+blogSchema.index(
+    {title:"text",content:"text"},
+    {weights:{title:10,content:5},name:'BlogSearchIndex'}
+)
+
+blogSchema.index({authorId:1,createdAt:-1})
+
 const Blog = mongoose.model('Blog',blogSchema)
 
 export default Blog
