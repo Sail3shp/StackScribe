@@ -4,6 +4,7 @@ import { connectDB } from './config/dbconfig.js'
 import userRouter from './routes/user.routes.js'
 import blogRouter from './routes/blog.routes.js'
 import cookieParser from 'cookie-parser'
+import { errorHandler } from './middleware/errorHandler.js'
 import cors from 'cors'
 
 dotenv.config()
@@ -21,7 +22,7 @@ app.use(cookieParser())
 
 app.use('/api/v1/auth',userRouter)
 app.use('/api/v1/blog',blogRouter)
-
+app.use(errorHandler)
 
 connectDB().then(() => {
     app.listen(PORT,() => {

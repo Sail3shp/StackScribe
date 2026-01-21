@@ -3,7 +3,7 @@ import { redis } from "../lib/redis.js"
 
 const invalidateCache = (cacheKey) => {
     redis.del(cacheKey)
-    if(err) throw err
+    if (err) throw err
     console.log(`cache key "${cacheKey}" invalidated`)
 }
 export const createBlog = async (req, res) => {
@@ -54,22 +54,49 @@ export const updateBlog = async (req, res) => {
     }
 }
 
-export const getBlogs = async (req, res) => {
+export const getBlogs = async (req, res, next) => {
+    const { q = '' } = req.query
     try {
-        const allBlogs = await Blog.find().populate("authorId","name")
-        redis.setex(req.originalUrl,120,JSON.stringify(allBlogs))
-        res.status(200).json({ message: 'blogs fetched successfully', allBlogs })
+        const page = Number(req.query.page) || 1
+        const limit = Number(req.query.limit) || 10
+        const skip = (page - 1) * limit
+        let blogQuery
+        let countQuery
+        if (q.trim().length > 3) {
+            blogQuery = Blog.find(
+                { $text: { $search: q } },
+                { score: { $meta: "textScore" } }
+            ).sort({ score: { $meta: "textScore" } })
+
+            countQuery = Blog.countDocuments(blogQuery)
+        } else {
+            blogQuery = Blog.find().sort({ createdAt: -1 })
+            countQuery = Blog.countDocuments()
+        }
+
+        const [allBlogs, total] = await Promise.all([
+            blogQuery.skip(skip).limit(limit).populate("authorId", "name"),
+            countQuery,
+        ])
+        const pages = Math.ceil(total / limit)
+        await redis.setex(req.originalUrl, 120, JSON.stringify({ allBlogs, total, page, pages }))
+        res.status(200).json({
+            message: 'blogs fetched successfully',
+            total,
+            page,
+            pages,
+            allBlogs
+        })
     } catch (error) {
-        res.status(500).json({ message: 'Internal server error' })
-        console.log('error in getting blog', error)
+        next(error)
     }
 }
 
-export const getBlogsById = async(req,res) => {
+export const getBlogsById = async (req, res) => {
     try {
         const blog = await Blog.findById(req.params.blogId)
-        if(!blog){
-            return res.status(404).json({message:'Blog not found'})
+        if (!blog) {
+            return res.status(404).json({ message: 'Blog not found' })
         }
         res.status(200).json(blog)
     } catch (error) {
@@ -78,35 +105,20 @@ export const getBlogsById = async(req,res) => {
     }
 }
 
-export const getBlogsByAuthor = async(req,res) => {
-    const {authorId} = req.params
+export const getBlogsByAuthor = async (req, res) => {
+    const { authorId } = req.params
     try {
-        const allBlogs = await Blog.find({authorId}).limit(10)
-        res.status(200).json({message:'blogs by author',allBlogs})
+        const allBlogs = await Blog.find({ authorId }).limit(10)
+        res.status(200).json({ message: 'blogs by author', allBlogs })
     } catch (error) {
         res.status(500).json({ message: 'Internal server error' })
-        console.log('error in getting blog by author', error) 
+        console.log('error in getting blog by author', error)
     }
 }
 
-export const searchBlogs = async(req,res) => {
-    const {q} = req.query
-    console.log(q)
-    try {
-        const allBlogs = await Blog.find(
-            {$text:{ $search: q}},
-            {score: {$meta: "textScore"}}
-        ).sort({score:{$meta:"textScore"}}).limit(10)
-        res.status(200).json({message:'searched blogs',blogs})
-    } catch (error) {
-        res.status(500).json({ message: 'Internal server error' })
-        console.log('error in getting blog', error.message) 
-    }
-}
 
-/*export const getBlogsByMostLiked = async(req,res) => {
 
-}*/
+
 
 export const deleteBlog = async (req, res) => {
     try {
@@ -126,7 +138,7 @@ export const deleteBlog = async (req, res) => {
 
 export const likeBlog = async (req, res) => {
     try {
-        console.log( req.user.userId)
+        console.log(req.user.userId)
         const likedBlog = await Blog.findByIdAndUpdate(
             req.params.blogId,
             { $addToSet: { likes: req.user.userId } },   // prevents duplicate likes
