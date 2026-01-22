@@ -1,13 +1,14 @@
 import Blog from "../model/blog.model.js"
 import { redis } from "../lib/redis.js"
+import { asyncErrorHandler } from "../utils/asyncErrorHandler.js"
+import AppError from "../utils/customError.js"
 
 const invalidateCache = (cacheKey) => {
     redis.del(cacheKey)
     if (err) throw err
     console.log(`cache key "${cacheKey}" invalidated`)
 }
-export const createBlog = async (req, res) => {
-    try {
+export const createBlog = asyncErrorHandler(async (req, res) => {
         const { title, content, imageUrl } = req.body
         if (!title || !content) {
             return res.status(400).json({ message: 'Please fill in all fields' })
@@ -20,14 +21,9 @@ export const createBlog = async (req, res) => {
         invalidateCache('/api/v1/blog/')
 
         res.status(201).json({ message: 'Your writings has been published', newBlog })
-    } catch (error) {
-        res.status(500).json({ message: 'Internal server error' })
-        console.log('error in create blog', error)
-    }
-}
+})
 
-export const updateBlog = async (req, res) => {
-    try {
+export const updateBlog = asyncErrorHandler(async (req, res) => {
         let { title, content } = req.body
         title = title?.trim()
         content = content?.trim()
@@ -48,15 +44,10 @@ export const updateBlog = async (req, res) => {
 
         res.status(201).json({ message: 'Blog updated successfully', updatedBlog })
 
-    } catch (error) {
-        res.status(500).json({ message: 'Internal server error' })
-        console.log('error in update blog', error)
-    }
-}
+})
 
-export const getBlogs = async (req, res, next) => {
+export const getBlogs = asyncErrorHandler(async (req, res, next) => {
     const { q = '' } = req.query
-    try {
         const page = Number(req.query.page) || 1
         const limit = Number(req.query.limit) || 10
         const skip = (page - 1) * limit
@@ -87,41 +78,26 @@ export const getBlogs = async (req, res, next) => {
             pages,
             allBlogs
         })
-    } catch (error) {
-        next(error)
-    }
-}
+})
 
-export const getBlogsById = async (req, res) => {
-    try {
+export const getBlogsById = asyncErrorHandler(async (req, res,next) => {
         const blog = await Blog.findById(req.params.blogId)
         if (!blog) {
-            return res.status(404).json({ message: 'Blog not found' })
+            return next(new AppError(404,'No blog found with that id'))
         }
         res.status(200).json(blog)
-    } catch (error) {
-        res.status(500).json({ message: 'Internal server error' })
-        console.log('error in getting blog', error.message)
-    }
-}
+})
 
-export const getBlogsByAuthor = async (req, res) => {
+export const getBlogsByAuthor = asyncErrorHandler(async (req, res) => {
     const { authorId } = req.params
-    try {
         const allBlogs = await Blog.find({ authorId }).limit(10)
         res.status(200).json({ message: 'blogs by author', allBlogs })
-    } catch (error) {
         res.status(500).json({ message: 'Internal server error' })
         console.log('error in getting blog by author', error)
-    }
-}
+})
 
 
-
-
-
-export const deleteBlog = async (req, res) => {
-    try {
+export const deleteBlog = asyncErrorHandler(async (req, res) => {
         const blogDetails = await Blog.findById(req.params.blogId)
         if (blogDetails.authorId.toString() !== req.user.userId) {
             return res.status(401).json({ message: 'unauthorized' })
@@ -129,15 +105,10 @@ export const deleteBlog = async (req, res) => {
         await Blog.findByIdAndDelete(req.params.blogId)
         res.status(204).json({ message: 'Your blog has been removed' })
 
-    } catch (error) {
-        res.status(500).json({ message: 'Internal server error' })
-        console.log('error in deleting blog', error)
-    }
-}
+})
 
 
-export const likeBlog = async (req, res) => {
-    try {
+export const likeBlog = asyncErrorHandler(async (req, res) => {
         console.log(req.user.userId)
         const likedBlog = await Blog.findByIdAndUpdate(
             req.params.blogId,
@@ -145,22 +116,13 @@ export const likeBlog = async (req, res) => {
             { new: true }
         )
         res.status(200).json(likedBlog)
-    } catch (error) {
-        res.status(500).json({ message: 'Internal server error' })
-        console.log('error in liking blog', error)
-    }
-}
+})
 
-export const unLikeBlog = async (req, res) => {
-    try {
+export const unLikeBlog = asyncErrorHandler(async (req, res) => {
         const unLiked = await Blog.findByIdAndUpdate(
             req.params.blogId,
             { $pull: { likes: req.user.userId } },
             { new: true }
         )
         res.status(200).json(unLiked)
-    } catch (error) {
-        res.status(500).json({ message: 'Internal server error' })
-        console.log('error in unliking blog', error)
-    }
-}
+})
