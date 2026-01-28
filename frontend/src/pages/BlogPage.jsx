@@ -2,15 +2,25 @@ import { SearchIcon } from "lucide-react"
 import BlogCard from "../components/BlogCard"
 import {useSelector,useDispatch} from 'react-redux'
 import { getBlogs } from "../app/blogSlice"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 
 const BlogPage = () => {
   const dispatch = useDispatch()
   const {blog,loading} = useSelector((state) => state.blog)
   useEffect(() => {
     dispatch(getBlogs())
-    console.log(loading)
   },[dispatch])
+  const {allBlogs,total,page,pages} = blog
+  console.log(allBlogs)
+  console.log(blog)
+  const [search,setSearch] = useState('')
+  useEffect(() => {
+    const getData = setTimeout(() => {
+      dispatch(getBlogs(search))
+      console.log('2sec delay')
+    },2000)
+    return () =>clearTimeout(getData)
+  },[search])
   
   return (
     
@@ -23,12 +33,14 @@ const BlogPage = () => {
         <input 
         className="p-2 bg-neutral-300 ps-10 rounded-md w-full"
         placeholder="search "
+        value={search}
+        onChange={(e)=>setSearch(e.target.value)}
         />
         </div>
     </div>
 
-    <div className="max-w-7xl mb-6 mx-auto mt-5 grid grid-cols-3 gap-4">
-      {  blog.map((post) => <BlogCard key={post._id} blog={post} />)}
+    <div className="max-w-7xl mb-6 p-2 mx-auto mt-5 grid grid-cols-1 md:grid-cols-3 sm:grid-cols-1  gap-4">
+      {   allBlogs?.map((post) => <BlogCard key={post._id} blog={post} />)}
     </div>
     </>
   )

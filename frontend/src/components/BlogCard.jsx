@@ -2,7 +2,6 @@ import { Edit2Icon, Heart} from "lucide-react"
 import {Link} from 'react-router'
 
 const BlogCard = (props) => {
-  console.log(props)
   const formattedDate = new Date(props.blog.updatedAt).toLocaleDateString("en-us",{
     year:"numeric",
     month:"long",

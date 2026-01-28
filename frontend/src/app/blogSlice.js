@@ -22,8 +22,13 @@ export const createBlog = createAsyncThunk('/blog', async (data, { rejectWithVal
     }
 })
 
-export const getBlogs = createAsyncThunk('/getblogs', async (_, { rejectWithValue }) => {
+export const getBlogs = createAsyncThunk('/getblogs', async (search, { rejectWithValue }) => {
+    console.log(search)
     try {
+        if(search){
+            const res = await api.get(`/blog/?q=${search}`)
+            return res.data
+        }
         const res = await api.get('/blog')
         return res.data.allBlogs
     } catch (error) {
@@ -36,6 +41,7 @@ export const getBlogs = createAsyncThunk('/getblogs', async (_, { rejectWithValu
 export const getBlogById = createAsyncThunk('blog/getOneId', async (id, { rejectWithValue }) => {
     try {
         const res = await api.get(`/blog/${id}`)
+        console.log(res.data)
         return res.data
     } catch (error) {
         console.log(error)
@@ -90,7 +96,7 @@ export const blogSlice = createSlice({
                 state.loading = false
             })
             .addCase(getBlogs.rejected, (state, action) => {
-                state.blog = null
+                state.blog = []
                 state.loading = false
                 state.error = action.payload
             })

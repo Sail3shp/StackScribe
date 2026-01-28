@@ -8,6 +8,7 @@ import LoginPage from './pages/LoginPage'
 import BlogPage from './pages/BlogPage'
 import AddBlogPage from './pages/AddBlogPage'
 import { useSelector } from 'react-redux'
+import SingleBlogPage from './pages/SingleBlogPage'
 //use /auth/me for persistent logging 
 function App() {
   const {user} = useSelector((state) => state.user)
@@ -23,6 +24,7 @@ function App() {
           <Route path='/blogs' element={<BlogPage />} />
           <Route path='/write' element={<AddBlogPage />}/>
           <Route path='/write/:id' element={<AddBlogPage /> }/>
+          <Route path='/blog/:id' element={<SingleBlogPage />} />
         </Routes>
       </main>
         <Footer />
