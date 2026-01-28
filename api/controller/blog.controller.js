@@ -81,7 +81,7 @@ export const getBlogs = asyncErrorHandler(async (req, res, next) => {
 })
 
 export const getBlogsById = asyncErrorHandler(async (req, res,next) => {
-        const blog = await Blog.findById(req.params.blogId)
+        const blog = await Blog.findById(req.params.blogId).populate("authorId","name")
         if (!blog) {
             return next(new AppError(404,'No blog found with that id'))
         }
