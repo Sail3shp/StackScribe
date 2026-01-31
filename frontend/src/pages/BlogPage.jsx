@@ -36,9 +36,9 @@ const BlogPage = () => {
         <h1 className="text-4xl font-medium text-center">Exciting Content</h1>
         <p className="text-lg text-center text-neutral-400">Ideas,inspirations,and the latest content in the world of design and technology</p>
         <div className="relative">
-          <div className="absolute ps-3 flex items-center inset-y-0"><SearchIcon /></div>
+          <div className="absolute ps-3 flex items-center inset-y-0"><SearchIcon className="text-neutral-600"/></div>
           <input
-            className="p-2 bg-neutral-300 ps-10 rounded-md w-full"
+            className="p-2 bg-neutral-200 ps-10 rounded-full w-full"
             placeholder="search "
             value={search}
             onChange={(e) => setSearch(e.target.value)}

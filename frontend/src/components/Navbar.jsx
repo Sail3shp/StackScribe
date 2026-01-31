@@ -41,7 +41,6 @@ const Navbar = () => {
         <Link to={'/signup'}>Sign in</Link>
         <Link to={'/login'}>Log in</Link>
       </div>)}
-      <hr></hr>
     </div>
   )
 }
