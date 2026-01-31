@@ -18,7 +18,7 @@ export const createBlog = asyncErrorHandler(async (req, res) => {
             content,
             authorId: req.user.userId
         })
-        invalidateCache('/api/v1/blog/')
+        //need to fix it invalidateCache('/api/v1/blog/')
 
         res.status(201).json({ message: 'Your writings has been published', newBlog })
 })
