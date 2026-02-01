@@ -76,9 +76,9 @@ export const likeBlog = createAsyncThunk('blog/like',async(blogId,{rejectWithVal
     try {
         console.log('works here')
         console.log(`/blog/like/${blogId}`)
-        const liked = await api.post(`/blog/like/${blogId}`)
-        console.log('not here')
-        console.log(liked)
+        const res = await api.post(`/blog/like/${blogId}`)
+        toast.success('Post Liked')
+        return res.data
     } catch (error) {
         console.log(error)
         const msg = error.response.data.message
@@ -141,7 +141,8 @@ export const blogSlice = createSlice({
                 state.error = action.payload
             })
             .addCase(likeBlog.fulfilled,(state,action) => {
-                console.log(action)
+                state.blog = action.payload
+                state.loading = false
     
             })
             .addCase(likeBlog.rejected,(state,action) => {

@@ -14,10 +14,23 @@ const SingleBlogPage = () => {
     useEffect(() => {
         dispatch(getBlogById(id))
     }, [id])
+    const likeCount = blog?.likes?.length
+    console.log(likeCount)
+    console.log(user)
+
+    const handleLike = () => {
+        if(blog?.likes?.includes(user?._id)){
+            //unlike dispatch(likeBlog(blog._id))
+        }else {
+            dispatch(likeBlog(blog._id))
+        }
+    }
+
+
     console.log(blog?.likes?.includes(user?._id))
     return (
         <div className="max-w-3xl border rounded-md mx-auto my-2 md:p-2  py-4 space-y-5 ">
-            <h1 className="text-5xl font-semibold text-center ">{blog.title}</h1>
+            <h1 className="text-5xl font-bold tracking-tight text-center ">{blog.title}</h1>
             <div className="flex gap-3 items-center justify-between">
                 <div className="flex items-center gap-3">
                     <img src="/landingpage.jpg" className="rounded-full size-8 ring-1" />
@@ -36,9 +49,9 @@ const SingleBlogPage = () => {
             <div className="hide text-center space-x-5 flex justify-between">
                 <button className="bg-red-600 text-white rounded-full p-2 cursor-pointer text-lg"><Trash /></button>
                 <button
-                    className=" rounded-full  cursor-pointer flex p-2 text-lg gap-1"
-                    onClick={() => dispatch(likeBlog(blog._id))}>
-                    {blog?.likes?.includes(user?._id) ? <ThumbsDown /> : <ThumbsUp className="text-neutral-500" />} {blog?.likes?.length === 0 ? '' : blog?.likes?.length}
+                    className="hover:scale-110 duration-200 rounded-full  cursor-pointer flex p-2 text-lg gap-1"
+                    onClick={handleLike}>
+                    {blog?.likes?.includes(user?._id)? <ThumbsUp fill="#F54927" className="text-neutral-800" /> : <ThumbsUp className="text-neutral-500" />} {likeCount > 0 && likeCount}
                 </button>
             </div>
         </div>

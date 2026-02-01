@@ -14,18 +14,18 @@ const Navbar = () => {
     navigate('/login',{replace:true})
   }
   return (
-    <div className="w-full bg-neutral-200 ">
+    <div className="top-0 backdrop-blur-md w-full bg-light sticky z-10 border-b border-slate-200">
       <div className="flex justify-between  max-w-7xl p-6 mx-auto items-center  rounded-lg">
-        <div className="font-bold text-3xl tracking-tight"><Link to={'/'}>StackScribe</Link></div>
-        <div className="md:flex hidden text-sm md:text-lg tracking-wide text-center  p-1 gap-4">
-          <Link to={'/write'}>Write</Link>
-          <Link to={'/blogs'}>Blogs</Link>
+        <div className="font-bold text-2xl tracking-tight text-slate-900"><Link to={'/'} className="text-2xl">StackScribe</Link></div>
+        <div className="md:flex hidden  md:text-lg tracking-wide text-center items-center p-1 space-x-5 gap-4">
+          <Link to={'/write'} className="text-sm font-medium hover:text-primary">Write</Link>
+          <Link to={'/blogs'} className="text-sm font-medium hover:text-primary">Blogs</Link>
           {user ? 
           <button onClick={handleLogout} className="text-red-500 hover:underline">Log out</button>
           :(
             <>
-            <Link to={'/signup'}>Sign up</Link>
-            <Link to={'/login'}>Log in</Link>
+            <Link to={'/signup'} className="text-sm font-medium hover:text-primary">Sign up</Link>
+            <Link to={'/login'} className="text-sm font-medium text-white bg-slate-900 hover:opacity-90 rounded-xl px-5 py-2.5">Log in</Link>
             </>
           )
         

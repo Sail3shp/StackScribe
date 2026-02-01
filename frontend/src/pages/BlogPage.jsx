@@ -14,7 +14,7 @@ const BlogPage = () => {
     if (!allBlogs || allBlogs.length === 0) {
       dispatch(getBlogs())
     }
-  }, [dispatch])
+  }, [])
 
   const { allBlogs, total, page, pages } = blog
   console.log(allBlogs)
@@ -22,24 +22,23 @@ const BlogPage = () => {
 
 
   useEffect(() => {
-    if (!search) return
     const getData = setTimeout(() => {
       dispatch(getBlogs(search))
       console.log('2sec delay')
-    }, 2000)
+    }, 1000)
     return () => clearTimeout(getData)
   }, [search])
   return (
 
     <>
-      <div className="max-w-md mx-auto space-y-4 mt-10">
-        <h1 className="text-4xl font-medium text-center">Exciting Content</h1>
+      <div className="max-w-xl mx-auto space-y-6 mt-10 ">
+        <h1 className="text-7xl  font-semibold tracking-tight text-center font-heading">Exciting Content</h1>
         <p className="text-lg text-center text-neutral-400">Ideas,inspirations,and the latest content in the world of design and technology</p>
         <div className="relative">
           <div className="absolute ps-3 flex items-center inset-y-0"><SearchIcon className="text-neutral-600"/></div>
           <input
-            className="p-2 bg-neutral-200 ps-10 rounded-full w-full"
-            placeholder="search "
+            className="px-4 py-3 bg-border border-none ps-10 hover:shadow-lg duration-300 rounded-full w-full"
+            placeholder="Search articles.... "
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />

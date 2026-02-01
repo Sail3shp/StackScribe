@@ -29,27 +29,29 @@ const BlogCard = (props) => {
         </div>
     </div>
     */
-    <div className="max-w-md  bg-neutral-200 flex flex-col p-3 space-y-3 rounded-xl shadow-lg">
+    <div className="max-w-md  bg-card-light flex flex-col  space-y-3 hover:-translate-y-2 duration-300 group rounded-xl hover:shadow-2xl">
       <Link to={`/blog/${props.blog._id}`} className="flex flex-col space-y-2">
         <img
           src={props.blog.imageUrl}
-          className="w-full h-40 object-cover p-1 rounded-lg"
+          className="w-full h-40 object-cover  rounded-lg"
         />
 
-        <h2 className="text-xl font-medium line-clamp-2">
-          {props.blog.title}
-        </h2>
+        <div className="p-2">
+          <h2 className="text-xl font-medium line-clamp-2 group-hover:text-sky-600">
+            {props.blog.title}
+          </h2>
 
-        <div
-          className="prose text-sm line-clamp-3"
-          dangerouslySetInnerHTML={{ __html: props.blog.content }}
-        />
+          <div
+            className="prose text-sm line-clamp-3"
+            dangerouslySetInnerHTML={{ __html: props.blog.content }}
+          />
+        </div>
 
-        
+
       </Link>
 
       {/* footer pinned to bottom */}
-      <div className="flex justify-between items-center mt-auto">
+      <div className="flex p-2 justify-between items-center mt-auto">
         <div className="flex">
           <img
             src="/landingpage.jpg"

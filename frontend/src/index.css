@@ -1,1 +1,20 @@
-@import "tailwindcss"
+@import "tailwindcss";
+
+@theme {
+    --color-body:#FAFAFA;
+    --color-primary:skyblue;
+    --color-light:#FDFDFD;
+    --color-secondary: #64748B;
+    --color-primary-button: #0F172A;
+    --color-card: #FFFFFF;
+    --color-card-light:#f1f5f9;
+    --color-border: #E2E8F0;
+
+    --font-heading: "Playfair Display","Lora","Instrument Serif";
+    --font-body: "Inter","Plus","Jakarta Sans","Outfit"
+}
+@layer base {
+    a{
+    @apply text-sm;
+    }
+}
