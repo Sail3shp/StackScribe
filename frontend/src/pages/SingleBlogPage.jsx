@@ -19,9 +19,9 @@ const SingleBlogPage = () => {
     console.log(user)
 
     const handleLike = () => {
-        if(blog?.likes?.includes(user?._id)){
+        if (blog?.likes?.includes(user?._id)) {
             //unlike dispatch(likeBlog(blog._id))
-        }else {
+        } else {
             dispatch(likeBlog(blog._id))
         }
     }
@@ -29,29 +29,29 @@ const SingleBlogPage = () => {
 
     console.log(blog?.likes?.includes(user?._id))
     return (
-        <div className="max-w-3xl border rounded-md mx-auto my-2 md:p-2  py-4 space-y-5 ">
-            <h1 className="text-5xl font-bold tracking-tight text-center ">{blog.title}</h1>
-            <div className="flex gap-3 items-center justify-between">
-                <div className="flex items-center gap-3">
-                    <img src="/landingpage.jpg" className="rounded-full size-8 ring-1" />
-                    <div className="flex flex-col text-sm">
-                        <p className="italic tracking-wide font-semibold text-lg">{blog.authorId?.name}</p>
-                        <p>{date}</p>
+        <div className="max-w-3xl border mt-10 rounded-md mx-auto my-2 p-4  space-y-10 ">
+            <h1 className="text-6xl font-bold tracking-tight text-primary-button font-heading text-center ">{blog.title}</h1>
+            <div className="flex  items-center justify-between ">
+                <div className="flex items-center gap-4">
+                    <img src="/landingpage.jpg" className="rounded-full size-12 border p-0.5" />
+                    <div className="flex flex-col  ">
+                        <p className="font-semibold tracking-wide font-body text-lg">{blog.authorId?.name}</p>
+                        <p className="text-xs">{date}</p>
                     </div>
                 </div>
-                <button><Edit/></button>
+                <button><Edit /></button>
             </div>
             <img src={blog.imageUrl} className="w-full max-h-80 rounded-lg " />
-            <div className="prose p-4"
+            <div className="prose p-4 leading-8"
                 dangerouslySetInnerHTML={{
                     __html: (blog.content)
                 }}></div>
             <div className="hide text-center space-x-5 flex justify-between">
-                <button className="bg-red-600 text-white rounded-full p-2 cursor-pointer text-lg"><Trash /></button>
+                <hr className="w-full mx-auto text-slate-400" ></hr>
                 <button
                     className="hover:scale-110 duration-200 rounded-full  cursor-pointer flex p-2 text-lg gap-1"
                     onClick={handleLike}>
-                    {blog?.likes?.includes(user?._id)? <ThumbsUp fill="#F54927" className="text-neutral-800" /> : <ThumbsUp className="text-neutral-500" />} {likeCount > 0 && likeCount}
+                    {blog?.likes?.includes(user?._id) ? <ThumbsUp fill="#F54927" className="text-neutral-800" /> : <ThumbsUp className="text-neutral-500" />} {likeCount > 0 && likeCount}
                 </button>
             </div>
         </div>
