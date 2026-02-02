@@ -27,7 +27,9 @@ const SingleBlogPage = () => {
             //unlike dispatch(likeBlog(blog._id))
         } else {
             dispatch(likeBlog(blog._id))
+            console.log('refetch')
             fetchBlogById()
+            console.log('refetched ')
         }
     }
 
@@ -55,9 +57,9 @@ const SingleBlogPage = () => {
                 <hr className="w-full mx-auto text-slate-200" />
                 <div className="flex items-center">
                     <button
-                        className="hover:scale-110 duration-200 rounded-full  cursor-pointer flex p-2 text-lg gap-1"
+                        className="hover:scale-110  duration-200 rounded-full  cursor-pointer flex p-2 text-lg gap-1"
                         onClick={handleLike}>
-                        {blog?.likes?.includes(user?._id) ? <Heart fill="red" size={32} className="text-white " /> : <Heart className="text-neutral-500" />}
+                        {blog?.likes?.includes(user?._id) ? <Heart fill="red" size={32} className="text-white " /> : <Heart className="text-neutral-500 hover:text-red-500 hover:fill-red-500 transition-all duration-300"   />}
                     </button>
                     <p className="text-lg">{likeCount > 0 && likeCount}</p>
                 </div>

@@ -16,7 +16,9 @@ const HomePage = () => {
                         A place to read, write and deepen your understanding of the world through the eyes of others.
                     </p>
                     <div className='flex gap-8 items-center'>
-                        <button className='bg-[#3b82f6] font-semibold hover:bg-blue-600 py-4 px-8 text-lg text-white shadow-lg rounded-xl hover:-translate-y-1 duration-200 cursor-pointer'>Start Reading</button>
+                        <Link to={'/blogs'} 
+                        className='bg-[#3b82f6] font-semibold hover:bg-blue-600 py-4 px-8 text-lg text-white shadow-lg rounded-xl hover:-translate-y-1 duration-200 cursor-pointer'>
+                        Start Reading</Link>
                         <button className='flex items-center gap-3 text-lg text-neutral-600 font-semibold'> <CirclePlay /> How it works</button>
                     </div>
                     <div className='border-t flex gap-12 border-slate-200 pt-12'>
@@ -40,7 +42,7 @@ const HomePage = () => {
                     </div>
                     <div className='flex gap-4 py-3'>
                         <input className='bg-neutral-200  rounded-2xl ps-4  w-full'
-                        placeholder='Enter your email'/>
+                            placeholder='Enter your email' />
                         <button className='bg-slate-800 text-white text-lg px-8 rounded-2xl'>Subscribe</button>
                     </div>
                 </div>
