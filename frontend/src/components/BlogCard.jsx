@@ -29,7 +29,7 @@ const BlogCard = (props) => {
         </div>
     </div>
     */
-    <div className="max-w-md  bg-card-light flex flex-col  space-y-3 hover:-translate-y-2 duration-300 group rounded-xl hover:shadow-2xl">
+    <div className="max-w-md  bg-card-light flex flex-col  space-y-3 hover:-translate-y-2 duration-300 group rounded-xl border border-slate-200 hover:shadow-2xl">
       <Link to={`/blog/${props.blog._id}`} className="flex flex-col space-y-2">
         <img
           src={props.blog.imageUrl}

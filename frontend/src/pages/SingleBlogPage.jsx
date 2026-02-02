@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux"
-import { useParams } from "react-router"
+import { Link, useParams } from "react-router"
 import { getBlogById } from "../app/blogSlice"
 import { useEffect } from "react"
 import { Edit, Edit2Icon, Heart, ThumbsDown, ThumbsUp, Trash } from "lucide-react"
@@ -29,7 +29,7 @@ const SingleBlogPage = () => {
 
     console.log(blog?.likes?.includes(user?._id))
     return (
-        <div className="max-w-3xl border mt-10 rounded-md mx-auto my-2 p-4  space-y-10 ">
+        <div className="max-w-3xl   mt-10 rounded-md mx-auto my-2 p-4  space-y-10 ">
             <h1 className="text-6xl font-bold tracking-tight text-primary-button font-heading text-center ">{blog.title}</h1>
             <div className="flex  items-center justify-between ">
                 <div className="flex items-center gap-4">
@@ -39,20 +39,23 @@ const SingleBlogPage = () => {
                         <p className="text-xs">{date}</p>
                     </div>
                 </div>
-                <button><Edit /></button>
+                <Link ><Edit className="hover:-translate-y-1 duration-200  rounded-full" /></Link>
             </div>
             <img src={blog.imageUrl} className="w-full max-h-80 rounded-lg " />
-            <div className="prose p-4 leading-8"
+            <div className="prose p-4 text-xl/8"
                 dangerouslySetInnerHTML={{
                     __html: (blog.content)
                 }}></div>
-            <div className="hide text-center space-x-5 flex justify-between">
-                <hr className="w-full mx-auto text-slate-400" ></hr>
-                <button
-                    className="hover:scale-110 duration-200 rounded-full  cursor-pointer flex p-2 text-lg gap-1"
-                    onClick={handleLike}>
-                    {blog?.likes?.includes(user?._id) ? <ThumbsUp fill="#F54927" className="text-neutral-800" /> : <ThumbsUp className="text-neutral-500" />} {likeCount > 0 && likeCount}
-                </button>
+            <div className="hide  space-x-5 flex flex-col">
+                <hr className="w-full mx-auto text-slate-200" />
+                <div className="flex items-center">
+                    <button
+                        className="hover:scale-110 duration-200 rounded-full  cursor-pointer flex p-2 text-lg gap-1"
+                        onClick={handleLike}>
+                        {blog?.likes?.includes(user?._id) ? <Heart  fill="#F54927" className="text-neutral-800" /> : <Heart className="text-neutral-500" />}
+                    </button>
+                    <p>{likeCount > 0 && likeCount}</p>
+                </div>
             </div>
         </div>
     )
