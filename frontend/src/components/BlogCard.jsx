@@ -29,14 +29,14 @@ const BlogCard = (props) => {
         </div>
     </div>
     */
-    <div className="max-w-md  bg-card-light flex flex-col  space-y-3 hover:-translate-y-2 duration-300 group rounded-xl border border-slate-200 hover:shadow-2xl">
+    <div className="max-w-md  bg-card-light flex flex-col  space-y-3 hover:-translate-y-2 duration-300 group rounded-xl border border-slate-200 hover:shadow-2xl overflow-hidden">
       <Link to={`/blog/${props.blog._id}`} className="flex flex-col space-y-2">
         <img
           src={props.blog.imageUrl}
-          className="w-full h-40 object-cover  rounded-lg"
+          className="w-full h-70 object-cover     transform transition-transform duration-500 group-hover:scale-105 "
         />
 
-        <div className="p-2">
+        <div className="p-4">
           <h2 className="text-xl font-medium line-clamp-2 group-hover:text-sky-600">
             {props.blog.title}
           </h2>
@@ -51,7 +51,7 @@ const BlogCard = (props) => {
       </Link>
 
       {/* footer pinned to bottom */}
-      <div className="flex p-2 justify-between items-center mt-auto">
+      <div className="flex p-4 justify-between items-center mt-auto">
         <div className="flex">
           <img
             src="/landingpage.jpg"

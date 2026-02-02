@@ -11,18 +11,23 @@ const SingleBlogPage = () => {
     const { blog, loading } = useSelector((state) => state.blog)
     const { user } = useSelector((state) => state.user)
     const date = formattedDate(blog.updatedAt)
-    useEffect(() => {
+
+    const fetchBlogById = () => {
         dispatch(getBlogById(id))
+    }
+
+    useEffect(() => {
+        fetchBlogById()
     }, [id])
     const likeCount = blog?.likes?.length
     console.log(likeCount)
-    console.log(user)
 
     const handleLike = () => {
         if (blog?.likes?.includes(user?._id)) {
             //unlike dispatch(likeBlog(blog._id))
         } else {
             dispatch(likeBlog(blog._id))
+            fetchBlogById()
         }
     }
 
@@ -39,7 +44,7 @@ const SingleBlogPage = () => {
                         <p className="text-xs">{date}</p>
                     </div>
                 </div>
-                <Link ><Edit className="hover:-translate-y-1 duration-200  rounded-full" /></Link>
+                <Link to={`/write/${blog._id}`}><Edit className="hover:-translate-y-1 duration-200  rounded-full" /></Link>
             </div>
             <img src={blog.imageUrl} className="w-full max-h-80 rounded-lg " />
             <div className="prose p-4 text-xl/8"
@@ -52,7 +57,7 @@ const SingleBlogPage = () => {
                     <button
                         className="hover:scale-110 duration-200 rounded-full  cursor-pointer flex p-2 text-lg gap-1"
                         onClick={handleLike}>
-                        {blog?.likes?.includes(user?._id) ? <Heart  fill="#F54927" className="text-neutral-800" /> : <Heart className="text-neutral-500" />}
+                        {blog?.likes?.includes(user?._id) ? <Heart fill="red" className="text-neutral-800" /> : <Heart className="text-neutral-500" />}
                     </button>
                     <p>{likeCount > 0 && likeCount}</p>
                 </div>
