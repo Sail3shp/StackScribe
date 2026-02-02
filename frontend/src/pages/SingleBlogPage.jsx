@@ -57,9 +57,9 @@ const SingleBlogPage = () => {
                     <button
                         className="hover:scale-110 duration-200 rounded-full  cursor-pointer flex p-2 text-lg gap-1"
                         onClick={handleLike}>
-                        {blog?.likes?.includes(user?._id) ? <Heart fill="red" className="text-neutral-800" /> : <Heart className="text-neutral-500" />}
+                        {blog?.likes?.includes(user?._id) ? <Heart fill="red" size={32} className="text-white " /> : <Heart className="text-neutral-500" />}
                     </button>
-                    <p>{likeCount > 0 && likeCount}</p>
+                    <p className="text-lg">{likeCount > 0 && likeCount}</p>
                 </div>
             </div>
         </div>
