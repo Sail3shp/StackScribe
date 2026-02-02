@@ -45,7 +45,7 @@ const BlogPage = () => {
         </div>
       </div>
 
-      <div className="max-w-7xl mb-6 p-2 mx-auto mt-5 grid grid-cols-1 md:grid-cols-3 sm:grid-cols-1  gap-4">
+      <div className="max-w-7xl mb-6 p-2 mx-auto mt-5 grid grid-cols-2 md:grid-cols-3 sm:grid-cols-1  gap-8">
         {loading ? (
           Array.from({ length: 10 }).map((_, index) => (
             <CardSkeleton key={index} />

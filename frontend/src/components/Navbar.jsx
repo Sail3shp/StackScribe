@@ -14,7 +14,7 @@ const Navbar = () => {
     navigate('/login', { replace: true })
   }
   return (
-    <div className="top-0  w-full bg-light sticky z-10 border-b border-slate-200/80">
+    <div className="top-0  w-full backdrop-blur-md bg-light/50 sticky z-10 border-b border-slate-200">
       <div className="flex justify-between  max-w-7xl p-6 mx-auto items-center  rounded-lg">
         <div className="font-bold text-2xl tracking-tight text-slate-900"><Link to={'/'} className="text-2xl">StackScribe</Link></div>
         <div className="md:flex hidden  md:text-lg tracking-wide text-center items-center p-1 space-x-5 gap-4">

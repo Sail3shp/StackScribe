@@ -29,20 +29,20 @@ const BlogCard = (props) => {
         </div>
     </div>
     */
-    <div className="max-w-md  bg-card-light flex flex-col  space-y-3 hover:-translate-y-2 duration-300 group rounded-xl border border-slate-200 hover:shadow-2xl overflow-hidden">
+    <div className="max-w-md  bg-card-light flex flex-col  space-y-3 hover:-translate-y-1 transition-all duration-300 group rounded-3xl border border-slate-200 hover:shadow-2xl overflow-hidden">
       <Link to={`/blog/${props.blog._id}`} className="flex flex-col space-y-2">
         <img
           src={props.blog.imageUrl}
           className="w-full h-70 object-cover     transform transition-transform duration-500 group-hover:scale-105 "
         />
 
-        <div className="p-4">
-          <h2 className="text-xl font-medium line-clamp-2 group-hover:text-sky-600">
+        <div className="p-8">
+          <h2 className="text-2xl font-bold mb-3 text-slate-900 line-clamp-2 group-hover:text-sky-600">
             {props.blog.title}
           </h2>
 
           <div
-            className="prose text-sm line-clamp-3"
+            className="prose text-slate-600 line-clamp-3"
             dangerouslySetInnerHTML={{ __html: props.blog.content }}
           />
         </div>
@@ -52,16 +52,16 @@ const BlogCard = (props) => {
 
       {/* footer pinned to bottom */}
       <div className="flex p-4 justify-between items-center mt-auto">
-        <div className="flex">
+        <div className="flex items-center gap-3">
           <img
             src="/landingpage.jpg"
-            className="border border-blue-400 size-10 rounded-full"
+            className="border-2 border-blue-400 size-10 rounded-full"
           />
           <div className="flex flex-col ml-2">
-            <h4 className="text-sm font-medium">
+            <h4 className="text-sm font-semibold text-slate-900 leading-none">
               {props.blog.authorId.name}
             </h4>
-            <p className="text-xs">{date}</p>
+            <p className="text-xs text-slate-500 mt-1">{date}</p>
           </div>
         </div>
       </div>
