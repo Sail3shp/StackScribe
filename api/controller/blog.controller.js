@@ -40,7 +40,7 @@ export const updateBlog = asyncErrorHandler(async (req, res) => {
             content
         }, { new: true })
 
-        invalidateCache('/api/v1/blog/')
+        //invalidateCache('/api/v1/blog/')
 
         res.status(201).json({ message: 'Blog updated successfully', updatedBlog })
 

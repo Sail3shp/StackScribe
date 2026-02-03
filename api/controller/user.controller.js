@@ -1,6 +1,7 @@
 import User from "../model/user.model.js"
 import bcrypt from 'bcryptjs'
 import { generateTokenAndSetCookie } from "../utils/generateTokenAndSetCookie.js"
+import { asyncErrorHandler } from "../utils/asyncErrorHandler.js"
 export const register = async (req, res) => {
     const { username, email, password } = req.body
 
@@ -118,3 +119,12 @@ export const updateUser = async(req,res) => {
         console.log('error in update controller', error)
     }
 }
+
+export const me = asyncErrorHandler(async(req,res) => {
+    const user = await User.findById(req.user.userId).select('-password')
+    console.log(user)
+    res.status(200).json({
+        status:'success',
+        data: user
+    })
+})
