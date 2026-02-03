@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux"
 import { Link, useParams } from "react-router"
-import { getBlogById } from "../app/blogSlice"
+import { getBlogById, unLikeBlog } from "../app/blogSlice"
 import { useEffect } from "react"
 import { Edit, Edit2Icon, Heart, ThumbsDown, ThumbsUp, Trash } from "lucide-react"
 import { formattedDate } from "../utils/formateDate"
@@ -12,24 +12,17 @@ const SingleBlogPage = () => {
     const { user } = useSelector((state) => state.user)
     const date = formattedDate(blog.updatedAt)
 
-    const fetchBlogById = () => {
-        dispatch(getBlogById(id))
-    }
-
     useEffect(() => {
-        fetchBlogById()
-    }, [id])
+        dispatch(getBlogById(id))
+    }, [id,dispatch])
     const likeCount = blog?.likes?.length
     console.log(likeCount)
 
-    const handleLike = () => {
+    const handleLike = async() => {
         if (blog?.likes?.includes(user?._id)) {
-            //unlike dispatch(likeBlog(blog._id))
+            dispatch(unLikeBlog(blog._id))
         } else {
-            dispatch(likeBlog(blog._id))
-            console.log('refetch')
-            fetchBlogById()
-            console.log('refetched ')
+            dispatch(likeBlog(blog._id)) 
         }
     }
 

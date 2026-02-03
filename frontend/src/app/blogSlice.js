@@ -88,6 +88,20 @@ export const likeBlog = createAsyncThunk('blog/like',async(blogId,{rejectWithVal
     }
 })
 
+export const unLikeBlog = createAsyncThunk('blog/unlike',async(blogId,{rejectWithValue}) => {
+    try {
+        const res = await api.delete(`/blog/like/${blogId}`)
+        toast.success(' Like removed')
+        return res.data
+    } catch (error) {
+        console.log(error)
+        const msg = error.response.data.message
+        toast.error(msg)
+        console.log(error.response.data.message)
+        return rejectWithValue(msg)
+    }
+})
+
 export const blogSlice = createSlice({
     name: 'blog',
     initialState,
@@ -141,14 +155,27 @@ export const blogSlice = createSlice({
                 state.error = action.payload
             })
             .addCase(likeBlog.fulfilled,(state,action) => {
-                state.blog = action.payload
+                state.blog = {
+                    ...state.blog,
+                    likes: action.payload.likes
+                }
                 state.loading = false
-    
             })
             .addCase(likeBlog.rejected,(state,action) => {
                 state.error = action.payload
                 console.log(action.payload)
 
+            })
+            .addCase(unLikeBlog.fulfilled,(state,action) => {
+                state.blog = {
+                    ...state.blog,
+                    likes: action.payload.likes
+                }
+                state.loading = false
+            })
+            .addCase(unLikeBlog.rejected,(state,action) => {
+                state.error = action.payload
+                console.log(action.payload)
             })
     }
 })
