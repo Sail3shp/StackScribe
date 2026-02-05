@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Routes, Route, Navigate } from 'react-router'
 import Navbar from './components/Navbar'
 import HomePage from './pages/HomePage'
@@ -7,10 +7,16 @@ import SignupPage from './pages/SignupPage'
 import LoginPage from './pages/LoginPage'
 import BlogPage from './pages/BlogPage'
 import AddBlogPage from './pages/AddBlogPage'
-import { useSelector } from 'react-redux'
+import { useSelector,useDispatch } from 'react-redux'
 import SingleBlogPage from './pages/SingleBlogPage'
+import { getMe } from './app/userSlice'
+
 //use /auth/me for persistent logging 
 function App() {
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(getMe())
+  },[dispatch])
   const {user} = useSelector((state) => state.user)
 
   return (

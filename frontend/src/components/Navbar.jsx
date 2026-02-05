@@ -6,6 +6,7 @@ import { logout } from "../app/userSlice"
 const Navbar = () => {
   const [isActive, setActive] = useState(false)
   const { user } = useSelector((state) => state.user)
+  console.log(user)
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -29,7 +30,9 @@ const Navbar = () => {
               }`
             }>Blogs</NavLink>
           {user ?
-            <button onClick={handleLogout} className="text-red-500 hover:underline">Log out</button>
+            <button onClick={handleLogout}
+             className="text-white rounded-xl shadow-xl bg-red-500 px-4 py-2 hover:scale-110 duration-200 cursor-pointer">
+            Log out</button>
             : (
               <>
                <NavLink to={'/signup'}

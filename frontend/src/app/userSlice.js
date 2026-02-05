@@ -81,6 +81,15 @@ export const updateAccount = createAsyncThunk('/auth/update',
     }
 )
 
+export const getMe = createAsyncThunk('/auth/me',async(_,{rejectWithValue})=>{
+    try {
+        const res = await api.get('/auth/me')
+        return res.data.data
+    } catch (error) {
+        return rejectWithValue(error?.respose?.data || {message:'error in getting account'})
+    }
+})
+
 export const userSlice = createSlice({
     name:'user',
     initialState,
@@ -129,6 +138,20 @@ export const userSlice = createSlice({
         .addCase(logout.fulfilled,(state)=>{
             state.user = null 
             state.loading = false
+        })
+        .addCase(getMe.fulfilled,(state,action)=>{
+            console.log(action.payload)
+            state.user = action.payload
+            state.loading = false
+        })
+        .addCase(getMe.pending,(state) => {
+            state.loading = true
+            state.error = null
+        })
+        .addCase(getMe.rejected,(state,action)=>{
+            state.user = null,
+            state.loading = false
+            state.error = action.payload?.message || 'Login failed'
         })
     } 
 })

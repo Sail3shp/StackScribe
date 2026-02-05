@@ -20,6 +20,7 @@ const SingleBlogPage = () => {
 
     const handleLike = async() => {
         if (blog?.likes?.includes(user?._id)) {
+            console.log('clicked unlike')
             dispatch(unLikeBlog(blog._id))
         } else {
             dispatch(likeBlog(blog._id)) 
