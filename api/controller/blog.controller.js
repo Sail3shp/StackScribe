@@ -2,6 +2,7 @@ import Blog from "../model/blog.model.js"
 import { redis } from "../lib/redis.js"
 import { asyncErrorHandler } from "../utils/asyncErrorHandler.js"
 import AppError from "../utils/customError.js"
+import cloudinary from "../lib/cloudinary.js"
 
 const invalidateCache = (cacheKey) => {
     redis.del(cacheKey)
@@ -9,13 +10,20 @@ const invalidateCache = (cacheKey) => {
     console.log(`cache key "${cacheKey}" invalidated`)
 }
 export const createBlog = asyncErrorHandler(async (req, res) => {
-        const { title, content, imageUrl } = req.body
+        const { title, content, image } = req.body
         if (!title || !content) {
             return res.status(400).json({ message: 'Please fill in all fields' })
         }
+        let cloudinaryResponse = null
+        if(image){
+            cloudinaryResponse = await cloudinary.uploader.upload(image,{folder:'products'})
+        }
+       // console.log(cloudinaryResponse?.secure_url)
+       const img = 'https://images.unsplash.com/photo-1542435503-956c469947f6?q=80&w=1674&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
         const newBlog = await Blog.create({
             title,
             content,
+            imageUrl: cloudinaryResponse?.secure_url|| img,
             authorId: req.user.userId
         })
         //need to fix it invalidateCache('/api/v1/blog/')
