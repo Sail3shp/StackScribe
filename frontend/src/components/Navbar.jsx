@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { logout } from "../app/userSlice"
 const Navbar = () => {
   const [isActive, setActive] = useState(false)
-  const { user } = useSelector((state) => state.user)
+  const { user,loading } = useSelector((state) => state.user)
   console.log(user)
   const dispatch = useDispatch()
   const navigate = useNavigate()

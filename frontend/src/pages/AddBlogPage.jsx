@@ -1,7 +1,7 @@
 import { useState, useRef, useMemo, useCallback, useEffect } from "react";
 import JoditEditor from 'jodit-react'
 import { useDispatch, useSelector } from "react-redux";
-import { createBlog, getBlogById,updateBlog } from "../app/blogSlice";
+import { createBlog, getBlogById, updateBlog } from "../app/blogSlice";
 import { useParams } from "react-router";
 
 
@@ -13,7 +13,8 @@ const AddBlogPage = () => {
   console.log(id)
   const [formData, setFormData] = useState({
     title: '',
-    content: ''
+    content: '',
+    image: ''
   })
   const dispatch = useDispatch()
 
@@ -85,18 +86,40 @@ const AddBlogPage = () => {
     }))
   }
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0]
+    console.log(file)
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onloadend = () => {
+        //console.log(reader.readAsDataURL(file))
+        setFormData({ ...formData, image: reader.result });
+      }
+
+      reader.readAsDataURL(file); // base64
+    }
+    /*else {
+      setFormData(prev => ({
+        ...prev,
+        image: e.target.value
+      }))
+    }*/
+  }
+
   const handleSubmit = () => {
     if (isEdit) {
-      dispatch(updateBlog({id,formData}))
+      dispatch(updateBlog({ id, formData }))
     } else {
       dispatch(createBlog(formData))
+      console.log(formData)
     }
 
   }
 
   return (
-    <div className="max-w-7xl mx-auto">
-      <h1 className="text-2xl font-medium text-center my-5">{isEdit ?'Update your article':'Write your article'}</h1>
+    <div className="max-w-7xl mx-auto flex flex-col">
+      <h1 className="text-2xl font-medium text-center my-5">{isEdit ? 'Update your article' : 'Write your article'}</h1>
       <label htmlFor="title">Title</label>
       <input type="text"
         id="title"
@@ -112,9 +135,18 @@ const AddBlogPage = () => {
         onBlur={handleBlur}
         onChange={handleChange}
       />
+      <div className="flex flex-col my-5 "><label htmlFor="image">Upload Image</label>
+        <input type="file"
+          id="image"
+          className="p-2 w-1/2 bg-neutral-100 m-1 "
+          accept="image/*"
+          onChange={handleImageChange}
+        />
+        {/**input containing file doesn't need controlled input due to browser restrictions */}
+      </div>
       <button
         onClick={handleSubmit}
-        className=" cursor-pointer rounded-md bg-green-400 p-1 my-5">{isEdit ? 'update':'submit'}</button>
+        className=" cursor-pointer w-25 rounded-md bg-green-400 px-4 py-2 my-5 hover:scale-110 duration-200">{isEdit ? 'update' : 'submit'}</button>
     </div>
   )
 }
