@@ -1,0 +1,24 @@
+{
+  "name": "stackscribe",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build":"npm install --prefix api && npm install --prefix frontend && npm run build --prefix frontend",
+    "start":"npm run start --prefix api"
+    
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sail3shp/StackScribe.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Sail3shp/StackScribe/issues"
+  },
+  "homepage": "https://github.com/Sail3shp/StackScribe#readme"
+}
