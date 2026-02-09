@@ -1,6 +1,6 @@
 import { Key, Mail, UserIcon } from "lucide-react"
 import { useDispatch,useSelector } from "react-redux"
-import { useNavigate } from "react-router"
+import { Link, useNavigate } from "react-router"
 import { useState,useEffect } from "react"
 import { signin } from "../app/userSlice"
 
@@ -58,6 +58,7 @@ const SignupPage = () => {
                 </div>
             </div>
             <button className="bg-blue-500 p-2 rounded-lg cursor-pointer transition text-white duration-100  ">Create an account </button>
+            <p>Already have an account? <Link to={'/login'} className="text-lg font-medium text-blue-500">Login</Link></p>
 
         </form>
     )
