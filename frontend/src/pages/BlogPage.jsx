@@ -31,10 +31,10 @@ const BlogPage = () => {
   return (
 
     <>
-      <div className="max-w-xl mx-auto space-y-6 mt-10 ">
+      <div className="max-w-xl  md:mx-auto space-y-6 mt-10 ">
         <h1 className="text-7xl  font-semibold tracking-tight text-center font-heading">Exciting Content</h1>
         <p className="text-lg text-center text-neutral-400">Ideas,inspirations,and the latest content in the world of design and technology</p>
-        <div className="relative">
+        <div className="relative mx-4">
           <div className="absolute ps-3 flex items-center inset-y-0"><SearchIcon className="text-neutral-600"/></div>
           <input
             className="px-4 py-3 bg-border border-none ps-10 hover:shadow-lg duration-300 rounded-full w-full"

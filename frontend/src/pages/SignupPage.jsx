@@ -28,7 +28,7 @@ const SignupPage = () => {
     return (
         <form 
         onSubmit={handleFormSubmit}
-        className="flex flex-col space-y-5 max-w-lg mx-auto my-10 bg-neutral-200  rounded-lg shadow-xl p-6">
+        className="flex flex-col space-y-5 max-w-lg md:mx-auto my-10 bg-neutral-200  rounded-lg shadow-xl p-6 m-6">
             <h2 className="text-2xl font-medium">Create an account</h2>
             <div>
                 <label htmlFor="username" className="text-sm block mb-2.5">Username</label>

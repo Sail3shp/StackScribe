@@ -27,7 +27,7 @@ const LoginPage = () => {
     return (
         <form 
         onSubmit={handleFormSubmit}
-        className="flex flex-col space-y-5 max-w-lg mx-auto my-10 bg-neutral-200  rounded-lg shadow-xl p-6">
+        className="flex flex-col space-y-5 max-w-lg m-6 md:mx-auto my-10 bg-neutral-200  rounded-lg shadow-xl p-6">
             <h2 className="text-2xl font-medium">Log in to your account</h2>
             <div>
                 <label htmlFor="email" className="text-sm block mb-2.5">Email</label>
