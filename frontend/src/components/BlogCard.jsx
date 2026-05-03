@@ -32,7 +32,7 @@ const BlogCard = (props) => {
     <div className="max-w-md  bg-card-light flex flex-col  space-y-3 hover:-translate-y-1 transition-all duration-300 group rounded-3xl border border-slate-200 hover:shadow-2xl overflow-hidden">
       <Link to={`/blog/${props.blog._id}`} className="flex flex-col space-y-2">
         <img
-          src={props.blog.imageUrl}
+          src={props.blog.imageUrl || null}
           className="w-full h-70 object-cover     transform transition-transform duration-500 group-hover:scale-105 "
         />
 

@@ -1,5 +1,5 @@
 import Blog from "../model/blog.model.js"
-import { redis } from "../lib/redis.js"
+//import { redis } from "../lib/redis.js"
 import { asyncErrorHandler } from "../utils/asyncErrorHandler.js"
 import AppError from "../utils/customError.js"
 import cloudinary from "../lib/cloudinary.js"
@@ -78,7 +78,9 @@ export const getBlogs = asyncErrorHandler(async (req, res, next) => {
             countQuery,
         ])
         const pages = Math.ceil(total / limit)
-        await redis.setex(req.originalUrl, 120, JSON.stringify({ allBlogs, total, page, pages }))
+        //removed cache 
+        //await redis.setex(req.originalUrl, 120, JSON.stringify({ allBlogs, total, page, pages }))
+        console.log(allBlogs)
         res.status(200).json({
             message: 'blogs fetched successfully',
             total,

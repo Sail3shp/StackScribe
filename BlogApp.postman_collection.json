@@ -1,0 +1,386 @@
+{
+  "info": {
+    "_postman_id": "313b7e8f-29aa-4b0c-a39e-63426b7a8e36",
+    "name": "BlogApp",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "48160153",
+    "_collection_link": "https://go.postman.co/collection/48160153-313b7e8f-29aa-4b0c-a39e-63426b7a8e36?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "User",
+      "item": [
+        {
+          "name": "signUp",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"username\":\"snoop\",\n    \"email\":\"n@n.c\",\n    \"password\":\"hello\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{authUrl}}/register",
+              "host": [
+                "{{authUrl}}"
+              ],
+              "path": [
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "login",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\":\"test\",\n    \"password\":\"test\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{authUrl}}/login",
+              "host": [
+                "{{authUrl}}"
+              ],
+              "path": [
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "logout",
+          "request": {
+            "auth": {
+              "type": "bearer"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\":\"test\",\n    \"password\":\"test\"\n}"
+            },
+            "url": {
+              "raw": "{{authUrl}}/logout",
+              "host": [
+                "{{authUrl}}"
+              ],
+              "path": [
+                "logout"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "deleteUser",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\":\"test\",\n    \"password\":\"test\"\n}"
+            },
+            "url": {
+              "raw": "{{authUrl}}/69393b39e2002ecf00232b48",
+              "host": [
+                "{{authUrl}}"
+              ],
+              "path": [
+                "69393b39e2002ecf00232b48"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "updateUser",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"username\":\"test2\",\n    \"email\":\"test2\",\n    \"password\":\"test2\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{authUrl}}/69394dc3641000241cb35c7e",
+              "host": [
+                "{{authUrl}}"
+              ],
+              "path": [
+                "69394dc3641000241cb35c7e"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "me",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"username\":\"test2\",\n    \"email\":\"test2\",\n    \"password\":\"test2\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{authUrl}}/69394dc3641000241cb35c7e",
+              "host": [
+                "{{authUrl}}"
+              ],
+              "path": [
+                "69394dc3641000241cb35c7e"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Blog",
+      "item": [
+        {
+          "name": "createblog",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"title\":\"my first blog\",\n    \"content\":\"here it comes\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{blogUrl}}/",
+              "host": [
+                "{{blogUrl}}"
+              ],
+              "path": [
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getAllBlogs",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{blogUrl}}/",
+              "host": [
+                "{{blogUrl}}"
+              ],
+              "path": [
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "updatBlog",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"title\":\" second\",\n    \"content\":\"updates instantly second attepmt\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{blogUrl}}/693aeec45a69db66bcae509a",
+              "host": [
+                "{{blogUrl}}"
+              ],
+              "path": [
+                "693aeec45a69db66bcae509a"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "search blog",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"title\":\" second\",\n    \"content\":\"updates instantly second attepmt\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{blogUrl}}/search?q=another",
+              "host": [
+                "{{blogUrl}}"
+              ],
+              "path": [
+                "search"
+              ],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "another"
+                },
+                {
+                  "key": "",
+                  "value": null,
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "likeblog",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{blogUrl}}/like/693a4bcb7244bea1297b9b32",
+              "host": [
+                "{{blogUrl}}"
+              ],
+              "path": [
+                "like",
+                "693a4bcb7244bea1297b9b32"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "unlike",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{blogUrl}}/like/693a4bcb7244bea1297b9b32",
+              "host": [
+                "{{blogUrl}}"
+              ],
+              "path": [
+                "like",
+                "693a4bcb7244bea1297b9b32"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getBlogById",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{blogUrl}}/693a4bcb7244bea1297b9b32",
+              "host": [
+                "{{blogUrl}}"
+              ],
+              "path": [
+                "693a4bcb7244bea1297b9b32"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getblogbyauthor",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{blogUrl}}/69394dc3641000241cb35c7e",
+              "host": [
+                "{{blogUrl}}"
+              ],
+              "path": [
+                "69394dc3641000241cb35c7e"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

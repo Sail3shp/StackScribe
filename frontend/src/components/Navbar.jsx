@@ -54,8 +54,8 @@ const Navbar = () => {
         </div>
         <button className="md:hidden cursor-pointer" onClick={() => { setActive(!isActive) }}> <Menu />  </button>
       </div>
-      {isActive && (<div className="absolute md:hidden  max-w-full  top-21   container text-sm  md:text-lg tracking-wide p-1 text-center bg-neutral-400  rounded-lg z-50 gap-4 flex flex-col ">
-        <Link >Write</Link>
+      {isActive && (<div className="absolute md:hidden  max-w-full   top-21   container text-sm  md:text-lg tracking-wide p-4 text-slate-200 text-left  bg-slate-600  rounded-lg z-50 gap-4 flex flex-col ">
+        <Link to={'/write'}>Write</Link>
         <Link to={'/blogs'}>Blogs</Link>
         <Link to={'/signup'}>Sign in</Link>
         <Link to={'/login'}>Log in</Link>

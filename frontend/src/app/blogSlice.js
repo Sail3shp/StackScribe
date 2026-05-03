@@ -23,11 +23,10 @@ export const createBlog = createAsyncThunk('/blog', async (data, { rejectWithVal
 })
 
 export const getBlogs = createAsyncThunk('/getblogs', async (search, { rejectWithValue }) => {
-    console.log(search)
     try {
         if(search){
             const res = await api.get(`/blog/?q=${search}`)
-            return res.data
+            return res.data.allBlogs
         }
         const res = await api.get('/blog')
         return res.data.allBlogs

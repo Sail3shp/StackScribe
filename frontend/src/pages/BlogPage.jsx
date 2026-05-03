@@ -17,7 +17,6 @@ const BlogPage = () => {
   }, [])
 
   const { allBlogs, total, page, pages } = blog
-  console.log(allBlogs)
   console.log(blog)
 
 
@@ -52,7 +51,7 @@ const BlogPage = () => {
           ))
 
         ) : (
-          allBlogs?.map((post) => (
+          blog?.map((post) => (
             <BlogCard key={post._id} blog={post} />
           ))
         )}
